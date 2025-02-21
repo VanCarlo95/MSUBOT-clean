@@ -791,7 +791,7 @@ port = int(os.getenv('PORT', 10000))
 model_path = os.getenv('RASA_MODEL', 'models/20250219-213623-prompt-factor.tar.gz')
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["https://drcmndr.github.io"]}})
+CORS(app, resources={r"/*": {"origins": ["https://msuiitalab.netlify.app"]}})
 
 # Global variables
 agent = None
