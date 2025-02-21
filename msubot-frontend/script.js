@@ -326,7 +326,7 @@ function sendMessageToServer(message) {
   const BACKEND_URL =
     window.location.hostname === "localhost"
       ? "http://localhost:10000"
-      : "https://msubot-latest-production.up.railway.app";
+      : "https://msubot-latest-production.up.railway.app"; // Change to your production URL
 
   const url = `${BACKEND_URL}/webhooks/rest/webhook`;
   console.log("Sending message to server:", { message, url });
