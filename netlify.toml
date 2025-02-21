@@ -1,0 +1,6 @@
+[build]
+command = "echo 'Build Successful'"  # No actual build command needed for plain HTML
+publish = "frontend"  # Path to your static HTML files
+
+[build.environment]
+PYTHON_VERSION = "3.10.12"
