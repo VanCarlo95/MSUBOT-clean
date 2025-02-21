@@ -1,0 +1,93 @@
+
+# services:
+#   - type: web
+#     name: msuitit-alab-chatbot
+#     env: python
+#     buildCommand: |
+#       python -m pip install --upgrade pip
+#       pip install -r requirements.txt
+#       pip install spacy==3.5.2
+#       python -m spacy download en_core_web_md
+#       python -c "import spacy; nlp=spacy.load('en_core_web_sm'); print('SpaCy model loaded successfully!')"
+#     startCommand: |
+#       rasa run --enable-api --cors "*" --port $PORT --model models\20250219-213623-prompt-factor.tar.gz
+#     envVars:
+#       - key: PYTHON_VERSION
+#         value: 3.9.0
+#       - key: PORT
+#         value: 5005
+
+
+# we'll be back wit this
+
+# services:
+#   - type: web
+#     name: msuitit-alab-chatbot
+#     env: python
+#     buildCommand: |
+#       python -m pip install --upgrade pip
+#       pip install -r requirements.txt
+#       pip install spacy==3.5.2
+#       python -c "import spacy; nlp=spacy.load('en_core_web_sm'); print('SpaCy model loaded successfully!')"
+#     startCommand: |
+#       gunicorn --bind 0.0.0.0:$PORT --worker-class gthread --workers 1 --threads 8 app:app
+#     envVars:
+#       - key: PYTHON_VERSION
+#         value: 3.9.0
+#       - key: PORT
+#         value: 10000
+#     scaling:
+#       minInstances: 1
+#       maxInstances: 1
+#     resources:
+#       memory: 512Mi
+
+# render.yaml
+
+# services:
+#   - type: web
+#     name: msuitit-alab-chatbot
+#     env: python
+#     buildCommand: |
+#       python -m pip install --upgrade pip
+#       pip install -r requirements.txt
+#     startCommand: |
+#       python -m spacy download en_core_web_sm
+#       gunicorn app:app --bind 0.0.0.0:10000 --workers 1 --timeout 180
+#     envVars:
+#       - key: PYTHON_VERSION
+#         value: 3.9.0
+#       - key: PORT
+#         value: 10000
+#       - key: RASA_MODEL
+#         value: models/20250219-213623-prompt-factor.tar.gz
+#     healthCheckPath: /
+#     healthCheckTimeout: 180
+
+
+# working
+
+# services:
+#   - type: web
+#     name: msuitit-alab-chatbot
+#     env: python
+#     buildCommand: pip install flask gunicorn
+#     startCommand: gunicorn --bind 0.0.0.0:10000 --log-level debug app:app
+#     envVars:
+#       - key: PORT
+#         value: 10000
+
+
+services:
+  - type: web
+    name: msuitit-alab-chatbot
+    env: python
+    buildCommand: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:10000 --workers 1 --timeout 180
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: RASA_MODEL
+        value: models/20250219-213623-prompt-factor.tar.gz
